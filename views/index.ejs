@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title><%= title%></title>
+  </head>
+  <body>
+    <h1>WHICH GAME ARE WE GONNA PLAY?</h1>
+    <div>
+      <form action="/gameSubmit" method="POST">
+        <label
+          >Game Name
+          <input type="text" name="title" />
+        </label>
+        <label
+          >Game Type e.g "card game"
+          <input type="text" name="gameType" required />
+        </label>
+        <label
+          >Minimum Number of Players
+          <input type="number" name="minPlayers" />
+        </label>
+        <label
+          >Maximum Number of Players
+          <input type="number" name="maxPlayers" />
+        </label>
+        <button>SUBMIT GAME</button>
+      </form>
+    </div>
+
+    <label
+      >Do you like peas?
+      <input type="checkbox" name="peas" />
+    </label>
+
+    <div>
+      <% for (let game of games) { %>
+      <div class="gameInfo">
+        <h2>Game: <%= game.title %></h2>
+        <ul>
+          <li>Type: <%= game.gameType %></li>
+          <li>Minimum Players: <%= game.minPlayers %></li>
+          <li>Maximum Players: <%= game.maxPlayers %></li>
+        </ul>
+      </div>
+      <% } %>
+    </div>
+  </body>
+</html>
