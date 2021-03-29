@@ -8,7 +8,7 @@ const Game = require('./models/game.js')
 const PORT = 3000
 
 
-const dbURL = "mongodb+srv://goober:" + password + "@cluster0.sf1vv.mongodb.net/mycooldatabase?retryWrites=true&w=majority"
+const dbURL = "mongodb+srv://goober:goob@cluster0.sf1vv.mongodb.net/mycooldatabase?retryWrites=true&w=majority"
 
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=> {
