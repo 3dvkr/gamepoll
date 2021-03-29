@@ -43,5 +43,5 @@ app.post('/gameSubmit', (req, res) => {
 })
 
 
-app.listen(PORT, () => {console.log('the server is working')});
+app.listen(process.env.PORT || PORT, () => {console.log('the server is working')});
 
