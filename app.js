@@ -12,6 +12,7 @@ const dbURL = "mongodb+srv://goober:goob@cluster0.sf1vv.mongodb.net/mycooldataba
 mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=> {
   console.log('we connected to the database')
+  app.listen(PORT, () => {console.log('the server is working')});
 })
 .catch(err => console.log(err))
 
@@ -42,5 +43,5 @@ app.post('/gameSubmit', (req, res) => {
 })
 
 
-app.listen(PORT, () => {console.log('the server is working')});
+
 
