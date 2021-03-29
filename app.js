@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
   Game.find()
   .then(result => {
     console.log(result)
-    res.render('./views/index.ejs', {title: 'GAME TIME', games: result });
+    res.render('index.ejs', {title: 'GAME TIME', games: result });
   })
   .catch(err => console.log(err))
   
