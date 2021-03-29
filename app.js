@@ -1,11 +1,12 @@
 const express = require('express')
 const app = express()
-
+const path = require('path')
 const { password } = require('./creds.js')
 const mongoose = require('mongoose')
 const Game = require('./models/game.js')
+const { dirname } = require('path')
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 
 const dbURL = "mongodb+srv://goober:goob@cluster0.sf1vv.mongodb.net/mycooldatabase?retryWrites=true&w=majority"
@@ -19,7 +20,8 @@ mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true})
 //middleware
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}))
-app.use(express.static('public'))
+app.set('views', path.join(__dirname, 'views'))
+app.use(express.static(path.join(__dirname, 'public')))
 
 
 app.get('/', (req, res) => {
@@ -43,5 +45,5 @@ app.post('/gameSubmit', (req, res) => {
 })
 
 
-app.listen(process.env.PORT || PORT, () => {console.log('the server is working')});
+app.listen(PORT, () => {console.log('the server is working')});
 
