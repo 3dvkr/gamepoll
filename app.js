@@ -1,10 +1,8 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const { password } = require('./creds.js')
 const mongoose = require('mongoose')
 const Game = require('./models/game.js')
-const { dirname } = require('path')
 
 const PORT = process.env.PORT || 3000
 
@@ -27,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.get('/', (req, res) => {
   Game.find()
   .then(result => {
-    console.log(result)
+
     res.render('index.ejs', {title: 'GAME TIME', games: result });
   })
   .catch(err => console.log(err))
@@ -35,7 +33,6 @@ app.get('/', (req, res) => {
 })
 
 app.post('/gameSubmit', (req, res) => {
-  console.log(req.body)
   const game = new Game(req.body);
   game.save()
   .then(() => {
