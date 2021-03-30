@@ -16,7 +16,9 @@ const gameSchema = new Schema({
     required: true,
     default: 2
   },
-   maxPlayers: Number
+   maxPlayers: Number,
+   votes: {type: Number,
+   default: 0}
 }, {timestamps: true})
 
 const Game = mongoose.model('Game', gameSchema)
