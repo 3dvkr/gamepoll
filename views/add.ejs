@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+<%- include('./partials/nav')%>
+  <h1>WHICH GAME ARE WE GONNA PLAY?</h1>
+    <div>
+      <form action="/gameSubmit" method="POST">
+        <label
+          >Game Name
+          <input type="text" name="title" />
+        </label>
+        <label
+          >Game Type e.g "card game"
+          <input type="text" name="gameType" required />
+        </label>
+        <label
+          >Minimum Number of Players
+          <input type="number" name="minPlayers" />
+        </label>
+        <label
+          >Maximum Number of Players
+          <input type="number" name="maxPlayers" />
+        </label>
+        <label
+       id="peas">Do you like peas?
+      <input type="checkbox" name="peas" />
+    </label>
+        <button>SUBMIT GAME</button>
+      </form>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title><%= title%></title>
+  </head>
+  <body>
+  <%- include('./partials/nav')%>
+    
+
+    
+
+    <div id="game-container">
+      <% for (let game of games) { %>
+      <div class="game-info" votes="<%= game.votes%>">
+        <h2>Game: <%= game.title %></h2>
+        
+        <ul>
+          <li>Type: <%= game.gameType %></li>
+          <li>Minimum Players: <%= game.minPlayers %></li>
+          <li>Maximum Players: <%= game.maxPlayers %></li>
+          <li>Votes: <%= game.votes%></li>
+        </ul>
+        <div>
+        <button name="<%= game._id%>" class="downvote">Downvote</button>
+        <button name="<%= game._id%>" class="upvote">Upvote</button>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <%- include('./partials/footer.ejs')%>
+    <script src="./main.js"></script>
+  </body>
+</html>

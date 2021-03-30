@@ -26,12 +26,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
+  res.render('index.ejs', {title: 'HOME'})
+})
+
+app.get('/vote', (req, res) => {
   Game.find()
     .then(result => {
-      res.render('index.ejs', { title: 'GAME TIME', games: result });
+      res.render('vote.ejs', { title: 'VOTE FOR GAME', games: result });
     })
     .catch(err => console.log(err));
 });
+
+app.get('/add', (req, res) => {
+  res.render('add.ejs', { title : 'ADD A GAME'})
+})
 
 app.post('/gameSubmit', (req, res) => {
   const game = new Game(req.body);
