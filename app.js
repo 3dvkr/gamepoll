@@ -36,6 +36,18 @@ app.get('/vote', (req, res) => {
     })
     .catch(err => console.log(err));
 });
+app.get('/features', (req, res) => {
+  Game.find()
+    .then(results => {
+      let maxVote = 0;
+      for (let result of results) {
+        if (result.votes > maxVote) {maxVote = result.votes}
+      }
+      let winners = results.filter(el => el.votes >= maxVote);
+      res.render('features.ejs', { title: 'VOTE FOR GAME', games: winners });
+    })
+    .catch(err => console.log(err));
+});
 
 app.get('/add', (req, res) => {
   res.render('add.ejs', { title : 'ADD A GAME'})
@@ -61,7 +73,7 @@ app.patch('/upvote/:id', async (req, res) => {
     { votes: voteData.votes + 1 },
     { useFindAndModify: false }
   ).then(() => {
-    res.json({ redirect: '/' });
+    res.json({ redirect: '/vote' });
   });
 });
 
