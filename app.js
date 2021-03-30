@@ -38,22 +38,23 @@ app.get('/vote', (req, res) => {
     .catch(err => console.log(err));
 });
 app.get('/features', async (req, res) => {
-  const gameData = await Game.find()
+  const gameData = await Game.find();
   let maxVote = 0;
-      for (let result of gameData) {
-        if (result.votes > maxVote) {
-          maxVote = result.votes;
-        }
-      }
-  const winners = gameData.filter(el => el.votes >= maxVote)
-  console.log(winners)
+  for (let result of gameData) {
+    if (result.votes > maxVote) {
+      maxVote = result.votes;
+    }
+  }
+  const winners = gameData.filter(el => el.votes >= maxVote);
+  console.log(winners);
 
-  const peaData = await Peas.findOne()
-  
-  
-    res.render('features.ejs', { title: 'VOTE FOR GAME', games: winners, peaStuff: peaData });
-  
-  
+  const peaData = await Peas.findOne();
+
+  res.render('features.ejs', {
+    title: 'VOTE FOR GAME',
+    games: winners,
+    peaStuff: peaData,
+  });
 });
 
 app.get('/add', (req, res) => {
