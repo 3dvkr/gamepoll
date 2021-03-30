@@ -7,9 +7,15 @@
   <h1>It's Game Time, Baby!</h1>
   <h3>What shall we play this week?</h3>
   <div>
-  <a href="/add"><button>Add Your Favourite!</button></a>
-  <a href="/vote"><button>Vote The Winner!</button></a>
+  <%- include('./partials/new_game_form.ejs')%>
+  <button class="add-new-game-button">Add Your Favourite!</button>
+  <%- include('./partials/winner.ejs')%>
+  <%- include('./partials/vote_partial.ejs')%>
+  <h3>Don't see a game you want?</h3>
+  <button class="add-new-game-button">Add Your Favourite!</button>
   </div>
   <%- include('./partials/footer')%>
+  <script src="./js/vote.js"></script>
+  <script src="./js/features.js"></script>
 </body>
 </html>

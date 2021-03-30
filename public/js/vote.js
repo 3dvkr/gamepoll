@@ -1,6 +1,6 @@
 const upvote = document.querySelectorAll('.upvote');
 const downvote = document.querySelectorAll('.downvote');
-const gameBoxes = Array.from(document.querySelectorAll('.game-info'));
+
 
 upvote.forEach(el =>
   el.addEventListener('click', e => {
@@ -29,9 +29,12 @@ downvote.forEach(el =>
 );
 
 
-const cool = gameBoxes.reduce(function(a, b){
-  
-  return a.filter(x => x.getAttribute('votes') >= b.getAttribute('votes'))
-}, gameBoxes)
 
-cool.forEach(el => el.style.backgroundColor = 'rgba(192, 255, 104, 0.602)')
+
+// const gameBoxes = Array.from(document.querySelectorAll('.game-info'));
+// const cool = gameBoxes.reduce(function(a, b){
+  
+//   return a.filter(x => x.getAttribute('votes') >= b.getAttribute('votes'))
+// }, gameBoxes)
+
+// cool.forEach(el => el.style.backgroundColor = 'rgba(192, 255, 104, 0.602)')

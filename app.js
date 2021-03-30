@@ -26,8 +26,19 @@ app.use(express.urlencoded({ extended: true }));
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.render('index.ejs', { title: 'HOME' });
+app.get('/', async (req, res) => {
+const gameList = await Game.find()
+
+let maxVote = 0;
+  for (let result of gameList) {
+    if (result.votes > maxVote) {
+      maxVote = result.votes;
+    }
+  }
+  const winners = gameList.filter(el => el.votes >= maxVote);
+  const peaData = await Peas.findOne();
+
+  res.render('index.ejs', { title: 'HOME', games: gameList, winners: winners, peaStuff: peaData});
 });
 
 app.get('/vote', (req, res) => {
@@ -115,7 +126,7 @@ app.patch('/upvote/:id', async (req, res) => {
     { votes: voteData.votes + 1 },
     { useFindAndModify: false }
   ).then(() => {
-    res.json({ redirect: '/vote' });
+    res.json({ redirect: '/' });
   });
 });
 
