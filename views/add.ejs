@@ -8,23 +8,23 @@
       <form action="/gameSubmit" method="POST">
         <label
           >Game Name
-          <input type="text" name="title" />
+          <input type="text" name="title" placeholder="Tic Tac Toe..." required />
         </label>
         <label
           >Game Type e.g "card game"
-          <input type="text" name="gameType" required />
+          <input type="text" name="gameType" placeholder="Strategy game..." required />
         </label>
         <label
           >Minimum Number of Players
-          <input type="number" name="minPlayers" />
+          <input type="number" name="minPlayers" placeholder="2" />
         </label>
         <label
           >Maximum Number of Players
-          <input type="number" name="maxPlayers" />
+          <input type="number" name="maxPlayers" placeholder="1000" />
         </label>
         <label
        id="peas">Do you like peas?
-      <input type="checkbox" name="peas" />
+      <input type="checkbox" name="peas" id="peaChoice" />
     </label>
         <button>SUBMIT GAME</button>
       </form>

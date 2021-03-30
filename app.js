@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
-const Game = require('./models/game.js');
+const Game = require('./models/game');
+const Peas = require('./models/peas');
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,8 +27,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.render('index.ejs', {title: 'HOME'})
-})
+  res.render('index.ejs', { title: 'HOME' });
+});
 
 app.get('/vote', (req, res) => {
   Game.find()
@@ -36,32 +37,72 @@ app.get('/vote', (req, res) => {
     })
     .catch(err => console.log(err));
 });
-app.get('/features', (req, res) => {
-  Game.find()
-    .then(results => {
-      let maxVote = 0;
-      for (let result of results) {
-        if (result.votes > maxVote) {maxVote = result.votes}
+app.get('/features', async (req, res) => {
+  const gameData = await Game.find()
+  let maxVote = 0;
+      for (let result of gameData) {
+        if (result.votes > maxVote) {
+          maxVote = result.votes;
+        }
       }
-      let winners = results.filter(el => el.votes >= maxVote);
-      res.render('features.ejs', { title: 'VOTE FOR GAME', games: winners });
-    })
-    .catch(err => console.log(err));
+  const winners = gameData.filter(el => el.votes >= maxVote)
+  console.log(winners)
+
+  const peaData = await Peas.findOne()
+  
+  
+    res.render('features.ejs', { title: 'VOTE FOR GAME', games: winners, peaStuff: peaData });
+  
+  
 });
 
 app.get('/add', (req, res) => {
-  res.render('add.ejs', { title : 'ADD A GAME'})
-})
+  res.render('add.ejs', { title: 'ADD A GAME' });
+});
 
-app.post('/gameSubmit', (req, res) => {
+app.post('/gameSubmit', async (req, res) => {
   const game = new Game(req.body);
+  if (req.body.peas === 'on') {
+    const peaData = await Peas.findById('6062ada1377878ae827faa18');
+    Peas.findByIdAndUpdate(
+      '6062ada1377878ae827faa18',
+      {
+        peopleWhoLikePeas: peaData.peopleWhoLikePeas + 1,
+      },
+      { useFindAndModify: false }
+    )
+      .then(() => {
+        saveGame(game, res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  } else if (req.body.peas !== 'on') {
+    const peaData = await Peas.findById('6062ada1377878ae827faa18');
+    Peas.findByIdAndUpdate(
+      '6062ada1377878ae827faa18',
+      {
+        peopleWhoDislikePeas: peaData.peopleWhoDislikePeas + 1,
+      },
+      { useFindAndModify: false }
+    )
+      .then(() => {
+        saveGame(game, res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+});
+
+function saveGame(game, response) {
   game
     .save()
     .then(() => {
-      res.redirect('/');
+      response.redirect('/');
     })
     .catch(err => console.log(err));
-});
+}
 
 app.patch('/upvote/:id', async (req, res) => {
   const id = req.params.id;
