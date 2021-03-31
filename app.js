@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
+const anotherApp = express();
 const path = require('path');
 const mongoose = require('mongoose');
 const Game = require('./models/game');
 const Peas = require('./models/peas');
+
+const voteRoutes = require('./routes/voteRoutes.js')
 
 const PORT = process.env.PORT || 3000;
 
@@ -29,6 +32,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {
+  console.log(req)
 const gameList = await Game.find()
 
 let maxVote = 0;
@@ -43,32 +47,7 @@ let maxVote = 0;
   res.render('index.ejs', { title: 'HOME', games: gameList, winners: winners, peaStuff: peaData});
 });
 
-app.get('/vote', (req, res) => {
-  Game.find()
-    .then(result => {
-      res.render('vote.ejs', { title: 'VOTE FOR GAME', games: result });
-    })
-    .catch(err => console.log(err));
-});
-app.get('/features', async (req, res) => {
-  const gameData = await Game.find();
-  let maxVote = 0;
-  for (let result of gameData) {
-    if (result.votes > maxVote) {
-      maxVote = result.votes;
-    }
-  }
-  const winners = gameData.filter(el => el.votes >= maxVote);
-  
-
-  const peaData = await Peas.findOne();
-
-  res.render('features.ejs', {
-    title: 'VOTE FOR GAME',
-    games: winners,
-    peaStuff: peaData,
-  });
-});
+app.use('/vote', voteRoutes)
 
 app.get('/add', (req, res) => {
   res.render('add.ejs', { title: 'ADD A GAME' });
@@ -113,35 +92,8 @@ function saveGame(game, response) {
   game
     .save()
     .then(() => {
-      response.redirect('/');
+      response.redirect('/vote');
     })
     .catch(err => console.log(err));
 }
 
-app.patch('/upvote/:id', async (req, res) => {
-  const id = req.params.id;
-
-  const voteData = await Game.findById(id);
-
-  Game.findByIdAndUpdate(
-    id,
-    { votes: voteData.votes + 1 },
-    { useFindAndModify: false }
-  ).then(() => {
-    res.json({ redirect: '/vote' });
-  });
-});
-
-app.patch('/downvote/:id', async (req, res) => {
-  const id = req.params.id;
-
-  const voteData = await Game.findById(id);
-
-  Game.findByIdAndUpdate(
-    id,
-    { votes: voteData.votes - 1 },
-    { useFindAndModify: false }
-  ).then(() => {
-    res.json({ redirect: '/vote' });
-  });
-});

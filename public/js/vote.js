@@ -4,7 +4,7 @@ const downvote = document.querySelectorAll('.downvote');
 
 upvote.forEach(el =>
   el.addEventListener('click', e => {
-    const endpoint = `/upvote/${e.target.name}`;
+    const endpoint = `/vote/upvote/${e.target.name}`;
     //USE THIS IN LOCAL STORAGE TO SEND AN ALERT
     //WHEN SOMEONE TRIES TO VOTE TWICE
     console.log(e.target.name);
@@ -19,7 +19,7 @@ upvote.forEach(el =>
 
 downvote.forEach(el =>
   el.addEventListener('click', e => {
-    const endpoint = `/downvote/${e.target.name}`;
+    const endpoint = `/vote/downvote/${e.target.name}`;
     console.log(endpoint);
     fetch(endpoint, {
       method: 'PATCH',
