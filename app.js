@@ -48,8 +48,8 @@ let maxVote = 0;
   res.render('index.ejs', { title: 'HOME', games: gameList, winners: winners, peaStuff: peaData});
 });
 
-app.use('/vote', voteRoutes)
-app.use(gameSubmitRoutes)
+app.use('/vote', voteRoutes);
+app.use('/gameSubmit', gameSubmitRoutes);
 
 app.get('/add', (req, res) => {
   res.render('add.ejs', { title: 'ADD A GAME' });

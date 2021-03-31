@@ -3,6 +3,6 @@ const router = express.Router();
 
 const submitController = require('../controllers/submitController');
 
-router.post('/gameSubmit', submitController);
+router.post('/', submitController);
 
-module.exports = router
+module.exports = router;
