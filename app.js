@@ -7,6 +7,7 @@ const Game = require('./models/game');
 const Peas = require('./models/peas');
 
 const voteRoutes = require('./routes/voteRoutes.js')
+const gameSubmitRoutes = require('./routes/gameSubmitRoutes.js')
 
 const PORT = process.env.PORT || 3000;
 
@@ -32,7 +33,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', async (req, res) => {
-  console.log(req)
+  // console.log(req)
 const gameList = await Game.find()
 
 let maxVote = 0;
@@ -48,52 +49,9 @@ let maxVote = 0;
 });
 
 app.use('/vote', voteRoutes)
+app.use(gameSubmitRoutes)
 
 app.get('/add', (req, res) => {
   res.render('add.ejs', { title: 'ADD A GAME' });
 });
-
-app.post('/gameSubmit', async (req, res) => {
-  const game = new Game(req.body);
-  if (req.body.peas === 'on') {
-    const peaData = await Peas.findById('6062ada1377878ae827faa18');
-    Peas.findByIdAndUpdate(
-      '6062ada1377878ae827faa18',
-      {
-        peopleWhoLikePeas: peaData.peopleWhoLikePeas + 1,
-      },
-      { useFindAndModify: false }
-    )
-      .then(() => {
-        saveGame(game, res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  } else if (req.body.peas !== 'on') {
-    const peaData = await Peas.findById('6062ada1377878ae827faa18');
-    Peas.findByIdAndUpdate(
-      '6062ada1377878ae827faa18',
-      {
-        peopleWhoDislikePeas: peaData.peopleWhoDislikePeas + 1,
-      },
-      { useFindAndModify: false }
-    )
-      .then(() => {
-        saveGame(game, res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
-});
-
-function saveGame(game, response) {
-  game
-    .save()
-    .then(() => {
-      response.redirect('/vote');
-    })
-    .catch(err => console.log(err));
-}
 
