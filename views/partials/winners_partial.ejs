@@ -3,7 +3,7 @@
     <h1>
       The current <%= winners.length == 1 ? "winner is" : "winners are" %>...
     </h1>
-    
+
     <% for (let game of winners) { %>
     <div class="game-info" votes="<%= game.votes%>">
       <h2>Game: <%= game.title %></h2>
@@ -18,12 +18,11 @@
     <% } %>
     <div id="userReaction">
       <h4>Tell us how you feel about it:</h4>
-      <ion-icon name="happy-outline" ></ion-icon>
-      <ion-icon name="sad-outline" ></ion-icon>
+      <ion-icon name="happy-outline"></ion-icon>
+      <ion-icon name="sad-outline"></ion-icon>
     </div>
   </div>
   <h2>And the results are also in regarding the peas!</h2>
-  <% console.log(peaStuff)%>
   <h3>People who like peas: <%= peaStuff.peopleWhoLikePeas%></h3>
   <h3>People who dislike peas: <%= peaStuff.peopleWhoDislikePeas%></h3>
 </div>

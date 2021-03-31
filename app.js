@@ -59,7 +59,7 @@ app.get('/features', async (req, res) => {
     }
   }
   const winners = gameData.filter(el => el.votes >= maxVote);
-  console.log(winners);
+  
 
   const peaData = await Peas.findOne();
 
@@ -128,7 +128,7 @@ app.patch('/upvote/:id', async (req, res) => {
     { votes: voteData.votes + 1 },
     { useFindAndModify: false }
   ).then(() => {
-    res.json({ redirect: '/' });
+    res.json({ redirect: '/vote' });
   });
 });
 
@@ -142,6 +142,6 @@ app.patch('/downvote/:id', async (req, res) => {
     { votes: voteData.votes - 1 },
     { useFindAndModify: false }
   ).then(() => {
-    res.json({ redirect: '/' });
+    res.json({ redirect: '/vote' });
   });
 });

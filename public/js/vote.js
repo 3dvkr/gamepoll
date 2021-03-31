@@ -5,7 +5,9 @@ const downvote = document.querySelectorAll('.downvote');
 upvote.forEach(el =>
   el.addEventListener('click', e => {
     const endpoint = `/upvote/${e.target.name}`;
-    console.log(endpoint);
+    //USE THIS IN LOCAL STORAGE TO SEND AN ALERT
+    //WHEN SOMEONE TRIES TO VOTE TWICE
+    console.log(e.target.name);
     fetch(endpoint, {
       method: 'PATCH',
     })
