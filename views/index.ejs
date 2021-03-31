@@ -9,13 +9,16 @@
   <div>
   <%- include('./partials/new_game_form.ejs')%>
   <button class="add-new-game-button">Add Your Favourite!</button>
-  <%- include('./partials/winner.ejs')%>
+  <%- include('./partials/winners_partial.ejs')%>
+  <button id="next-game-date-button">Next Game When?</button>
+  <span id="next-game-date" class="hidden"><%= new Date('April 4, 2021 12:00:00')%></span>
   <%- include('./partials/vote_partial.ejs')%>
   <h3>Don't see a game you want?</h3>
   <button class="add-new-game-button">Add Your Favourite!</button>
   </div>
   <%- include('./partials/footer')%>
   <script src="./js/vote.js"></script>
+  <script src="./js/main.js"></script>
   <script src="./js/features.js"></script>
 </body>
 </html>

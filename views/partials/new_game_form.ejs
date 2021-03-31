@@ -1,5 +1,6 @@
-<div>
-      <form action="/gameSubmit" method="POST">
+<div id="game-form" class="hidden">
+
+      <form id="the-form" action="/gameSubmit" method="POST">
         <label
           >Game Name
           <input type="text" name="title" placeholder="Tic Tac Toe..." required />
@@ -22,4 +23,5 @@
     </label>
         <button>SUBMIT GAME</button>
       </form>
+      <button id="close-form" class="add-new-game-button">Close X</button>
     </div>
