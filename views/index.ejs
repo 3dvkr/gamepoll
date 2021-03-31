@@ -5,16 +5,18 @@
   <%- include('./partials/nav.ejs')%>
   <img src="https://i.etsystatic.com/19649291/r/il/9a6f10/1844621007/il_570xN.1844621007_h7a5.jpg" alt="Just some dogs having a good time!`" title="Just some dogs having a good time!">
   <h1>It's Game Time, Baby!</h1>
-  <h3>What shall we play this week?</h3>
+  
   <div>
   <%- include('./partials/new_game_form.ejs')%>
-  <button class="add-new-game-button">Add Your Favourite!</button>
+  
   <%- include('./partials/winners_partial.ejs')%>
+  <div>
+  <button>Add Your Favourite</button>
+  <button><a href="/vote">Vote The Winner!</a></button>
+  </div>
+  <div>
   <button id="next-game-date-button">Next Game When?</button>
   <span id="next-game-date" class="hidden"><%= new Date('April 4, 2021 12:00:00')%></span>
-  <%- include('./partials/vote_partial.ejs')%>
-  <h3>Don't see a game you want?</h3>
-  <button class="add-new-game-button">Add Your Favourite!</button>
   </div>
   <%- include('./partials/footer')%>
   <script src="./js/vote.js"></script>
